@@ -1,0 +1,26 @@
+;Programa Hello World
+;Introdução ao Assembly
+;Author: Vitor Bruno, FEAP
+
+SYS_EXIT    equ 1
+SYS_READ    equ 3
+SYS_WRITE   equ 4
+STDIN       equ 0
+STDOUT       equ 1
+    
+section .text       ;iniciar sessão de texto/mensagem e
+                        ;alocação de memória
+        global _start   ;coleção de dados declarados
+        
+_start: 
+    mov edx, len        ;comprimento da mensagem
+    mov ecx, msg        ;mensagem para escrever
+    mov ebx, STDOUT     ;descritor do arquivo (saida)
+    mov eax, SYS_WRITE    ;descritor do arquivo (entrada)
+    int 0x80        ;chamada kernel
+    mov eax, SYS_EXIT
+    int 0x80        ;chamada kernel
+    
+    section .data    ;sessão de dados
+    msg db "Hello, world"
+    len equ $   -msg
