@@ -1,0 +1,53 @@
+section .data
+    prompt db "Por favor, digite seu nome: ", 0
+    greeting db "Olá, ", 0
+    newline db 10, 0  ; Nova linha
+
+section .bss
+    name resb 10
+
+section .text
+    global _start
+    
+
+_start:
+    
+    mov eax, 4            
+    mov ebx, 1            
+    mov ecx, prompt       ; Exibe a mensagem solicitada no prompt
+    mov edx, 28           ; numero de digitos da mensagem
+    int 0x80
+
+    
+    mov eax, 3          
+    mov ebx, 0            ; le o nome
+    mov ecx, name         ; armazena o nome
+    mov edx, 10          ; tamanho maximo do nome
+    int 0x80
+
+   
+    mov eax, 4            
+    mov ebx, 1            ; adiciona uma linha de quebra no código
+    mov ecx, newline      ; nova linha
+    mov edx, 1            ; Comprimento
+    int 0x80
+
+    
+    
+    mov eax, 4            
+    mov ebx, 1            ; exibe uma mensagem de saudação com o nome
+    mov ecx, greeting     ; mensagem de saudação
+    mov edx, 6            ; tamanho da mensagem de saudação
+    int 0x80
+    
+    
+    mov eax, 4           
+    mov ebx, 1            ; exibe uma mensagem com o nome
+    mov ecx, name         ; nome
+    mov edx, 10           ; tamanho maximo do nome
+    int 0x80
+
+    
+    mov eax, 1            ; termina o programa
+    xor ebx, ebx          
+    int 0x80
